@@ -96,7 +96,9 @@ class NodeParser(TransformComponent, ABC):
 
         return nodes
 
-    def __call__(self, nodes: List[BaseNode], **kwargs: Any) -> List[BaseNode]:
+    def __call__(self, nodes: List[BaseNode] | BaseNode, **kwargs: Any) -> List[BaseNode]:
+        if isinstance(nodes, BaseNode):
+            nodes = [nodes]
         return self.get_nodes_from_documents(nodes, **kwargs)
 
 

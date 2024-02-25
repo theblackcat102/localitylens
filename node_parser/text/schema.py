@@ -24,11 +24,6 @@ except ImportError:
 from node_parser.utils import SAMPLE_TEXT, truncate_text
 from typing_extensions import Self
 
-if TYPE_CHECKING:
-    from haystack.schema import Document as HaystackDocument
-    from llama_index.core.bridge.langchain import Document as LCDocument
-    from semantic_kernel.memory.memory_record import MemoryRecord
-
 
 DEFAULT_TEXT_NODE_TMPL = "{metadata_str}\n\n{content}"
 DEFAULT_METADATA_TMPL = "{key}: {value}"

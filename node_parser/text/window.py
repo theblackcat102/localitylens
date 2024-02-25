@@ -2,7 +2,7 @@
 from typing import Any, Callable, List, Optional, Sequence
 
 from pydantic import Field
-from node_parser.interface import NodeParser
+from node_parser.text.interface import NodeParser
 from node_parser.node_utils import (
     build_nodes_from_splits,
     default_id_func,
@@ -86,9 +86,7 @@ class SentenceWindowNodeParser(NodeParser):
         """Parse document into nodes."""
         all_nodes: List[BaseNode] = []
         nodes_with_progress = get_tqdm_iterable(nodes, show_progress, "Parsing nodes")
-
         for node in nodes_with_progress:
-            self.sentence_splitter(node.get_content(metadata_mode=MetadataMode.NONE))
             nodes = self.build_window_nodes_from_documents([node])
             all_nodes.extend(nodes)
 
