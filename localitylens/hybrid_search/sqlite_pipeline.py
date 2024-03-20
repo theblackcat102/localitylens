@@ -1,7 +1,20 @@
 """
     Handle the indexing and search of raw texts
 """
-import sqlite3
+try:
+    import sqlite3
+    conn = sqlite3.connect(':memory:')
+    # If the following line does not raise an AttributeError, enable_load_extension is available
+    conn.enable_load_extension(True)
+    print("enable_load_extension is available.")
+    conn.close()
+except AttributeError:
+    try:
+        import sqlean as sqlite3
+    except ImportError:
+        raise ValueError("your sqlite3 doesn't support load_extension, fallback to sqlean failed\npip install sqlean")
+finally:
+    conn.close()
 import simple_fts5
 import sqlite_vss
 from .utils import chunks
