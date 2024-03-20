@@ -18,7 +18,7 @@ finally:
 import simple_fts5
 import sqlite_vss
 from .utils import chunks
-from node_parser.constants import DEFAULT_CHUNK_SIZE
+from localitylens.node_parser.constants import DEFAULT_CHUNK_SIZE
 
 class Pipeline():
 
@@ -75,7 +75,7 @@ class Pipeline():
             content_rowid='row_id',
             tokenize="simple"
         );''')
-        if not chunk_index:
+        if chunk_index:
             conn.execute(f'''
             CREATE TABLE IF NOT EXISTS {self.chunk_table} (
                 chunk_id INTEGER PRIMARY KEY AUTOINCREMENT,
