@@ -23,4 +23,9 @@ Documentation = "https://example.com/localitylens/docs"
 Repository = "https://example.com/localitylens/repo"
 
 [tool.setuptools]
-packages = ["localitylens"]
+packages = [
+    "localitylens",
+    "localitylens.dir_walker",
+    "localitylens.hybrid_search",
+    "localitylens.node_parser",
+]
