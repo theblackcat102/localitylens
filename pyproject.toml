@@ -28,4 +28,5 @@ packages = [
     "localitylens.dir_walker",
     "localitylens.hybrid_search",
     "localitylens.node_parser",
+    "localitylens.node_parser.text",
 ]
