@@ -10,6 +10,12 @@ authors = [{name = "Your Name", email = "youremail@example.com"}]
 license = { file = "LICENSE" }
 readme = "README.md"
 requires-python = ">=3.7"
+dependencies = [
+    "simple-fts5 @ git+https://github.com/theblackcat102/simple-fts5-py.git@334f2df1fec3e6bc0771b220cf91945916198ce5",
+    "sqlite-vss==0.1.2",
+    "tree-sitter==0.20.4",
+    "tree-sitter-languages==1.10.2",
+]
 
 [project.urls]
 Homepage = "https://example.com/localitylens"
