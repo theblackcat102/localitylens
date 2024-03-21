@@ -24,14 +24,17 @@ class Pipeline():
 
     def __init__(self, db_name, prefix_name, embed_dim=384,
                  chunk_index=False,
-                 chunk_size=10
+                 chunk_size=10,
+                 use_simple_fts5=True,
                 ):
         # Connect to SQLite database and enable extensions (adjust path as needed)
         self.conn = sqlite3.connect(db_name)
         self.conn.enable_load_extension(True)
         sqlite_vss.load(self.conn)  # Load sqlite-vss extension
-        simple_fts5.load(self.conn) # load chinese tokenizer method
+        if use_simple_fts5:
+            simple_fts5.load(self.conn) # load chinese tokenizer method
         self.main_table = prefix_name
+        self.use_simple_fts5 = use_simple_fts5
         self.meta_table = prefix_name+'_metadata'
         self.faiss_table = prefix_name+'_faiss'
         self.bm25_table = prefix_name+'_fts5'
@@ -67,14 +70,22 @@ class Pipeline():
             ctx_embedding({self.embed_dim})
         );
         ''')
+        if self.use_simple_fts5:
+            conn.execute(f'''
+            CREATE VIRTUAL TABLE IF NOT EXISTS {self.bm25_table} USING fts5(
+                content,
+                content='{self.main_table}',
+                content_rowid='row_id',
+                tokenize="simple"
+            );''')
+        else:
+            conn.execute(f'''
+            CREATE VIRTUAL TABLE IF NOT EXISTS {self.bm25_table} USING fts5(
+                content,
+                content='{self.main_table}',
+                content_rowid='row_id'
+            );''')
 
-        conn.execute(f'''
-        CREATE VIRTUAL TABLE IF NOT EXISTS {self.bm25_table} USING fts5(
-            content,
-            content='{self.main_table}',
-            content_rowid='row_id',
-            tokenize="simple"
-        );''')
         if chunk_index:
             conn.execute(f'''
             CREATE TABLE IF NOT EXISTS {self.chunk_table} (
