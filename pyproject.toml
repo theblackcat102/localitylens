@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "localitylens"
-version = "0.1.1"
+version = "0.1.2"
 description = "A package for locality lens operations including directory walking, node parsing, and hybrid searching."
 authors = [{name = "Your Name", email = "youremail@example.com"}]
 license = { file = "LICENSE" }

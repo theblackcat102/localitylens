@@ -25,7 +25,7 @@ class Pipeline():
     def __init__(self, db_name, prefix_name, embed_dim=384,
                  chunk_index=False,
                  chunk_size=10,
-                 use_simple_fts5=True,
+                 use_simple_fts5=False,
                 ):
         # Connect to SQLite database and enable extensions (adjust path as needed)
         self.conn = sqlite3.connect(db_name)
